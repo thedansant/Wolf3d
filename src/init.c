@@ -6,27 +6,35 @@
 /*   By: mbompoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 17:20:42 by mbompoil          #+#    #+#             */
-/*   Updated: 2016/10/18 18:20:30 by mbompoil         ###   ########.fr       */
+/*   Updated: 2016/10/19 17:28:38 by mbompoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void				ft_pos_init(t_wlf *wlf)
+static void			init_color(t_wlf *wlf)
 {
-	wlf->pos.posX = 3;
-	wlf->pos.posY = 3;
-	wlf->pos.dirX = -1;
-	wlf->pos.dirY = 0;
-	wlf->pos.planeX = 0;
-	wlf->pos.planeY = 0.66;
-	wlf->pos.old_time = 0;
-	wlf->pos.movespeed = 0.3;
-	wlf->pos.rotspeed = 0.2;
 	wlf->mlx.img.color1 = 0xFF0000;
 	wlf->mlx.img.color2 = 0xFFFF00;
 	wlf->mlx.img.color3 = 0x00FF00;
 	wlf->mlx.img.color4 = 0x0000FF;
+	wlf->mlx.img.color5 = 0x808080;
+	wlf->mlx.img.color0 = 0x77B5FE;
+
+}
+
+void				ft_pos_init(t_wlf *wlf)
+{
+	wlf->pos.posx = 3;
+	wlf->pos.posy = 3;
+	wlf->pos.dirx = -1;
+	wlf->pos.diry = 0;
+	wlf->pos.planex = 0;
+	wlf->pos.planey = 0.66;
+	wlf->pos.old_time = 0;
+	wlf->pos.movespeed = 0.3;
+	wlf->pos.rotspeed = 0.2;
+	init_color(wlf);
 }
 
 void				ft_mlx_init(t_wlf *wlf)

@@ -6,7 +6,7 @@
 /*   By: mbompoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 16:39:24 by mbompoil          #+#    #+#             */
-/*   Updated: 2016/09/30 18:02:13 by mbompoil         ###   ########.fr       */
+/*   Updated: 2016/10/19 17:54:31 by mbompoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 # define WOLF3D_H
 # define W 1200
 # define H 800
-
 # include <fcntl.h>
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
 # include <../libft/libft.h>
-
-
-#include <stdio.h>
 
 typedef struct		s_map
 {
@@ -32,45 +28,43 @@ typedef struct		s_map
 
 }					t_map;
 
-
 typedef struct		s_pos
 {
-	double			posX;
-	double			posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	double			planex;
+	double			planey;
 	double			time;
-	double			olddirX;
-	double			olddirY;
-	double			oldplaneX;
-	double			oldplaneY;
+	double			olddirx;
+	double			olddiry;
+	double			oldplanex;
+	double			oldplaney;
 	double			old_time;
 	double			frametime;
 	double			movespeed;
 	double			rotspeed;
-	double			cameraX;
-	double			rayposX;
-	double			rayposY;
-	double			raydirX;
-	double			raydirY;
-	int				mapX;
-	int				mapY;
-	double			sidedistX;
-	double			sidedistY;
-	double			deltadistX;
-	double			deltadistY;
+	double			camerax;
+	double			rayposx;
+	double			rayposy;
+	double			raydirx;
+	double			raydiry;
+	int				mapx;
+	int				mapy;
+	double			sidedistx;
+	double			sidedisty;
+	double			deltadistx;
+	double			deltadisty;
 	double			perpwalldist;
-	int				stepX;
-	int				stepY;
+	int				stepx;
+	int				stepy;
 	int				hit;
 	int				side;
 	int				lineheight;
 	int				drawstart;
 	int				drawend;
 }					t_pos;
-
 
 typedef struct		s_img
 {
@@ -84,6 +78,8 @@ typedef struct		s_img
 	int				color2;
 	int				color3;
 	int				color4;
+	int				color5;
+	int				color0;
 }					t_img;
 
 typedef struct		s_mlx
@@ -94,7 +90,6 @@ typedef struct		s_mlx
 	t_img			img;
 }					t_mlx;
 
-
 typedef struct		s_wlf
 {
 	t_mlx			mlx;
@@ -102,7 +97,6 @@ typedef struct		s_wlf
 	t_map			map;
 	int				tmp;
 }					t_wlf;
-
 
 void				ft_mlx_init(t_wlf *wlf);
 void				ft_pos_init(t_wlf *wlf);
@@ -112,13 +106,11 @@ void				draw_px(int x, int y, int color, t_wlf *wlf);
 
 int					ft_key_hook(int keycode, t_wlf *wlf);
 
-
 void				wolf(t_wlf *wlf);
 void				wolf1(t_wlf *wlf, int x);
 void				wolf2(t_wlf *wlf);
 void				wolf3(t_wlf *wlf);
 void				wolf4(t_wlf *wlf);
 void				wolf5(t_wlf *wlf, int x, int tmp);
-
 
 #endif

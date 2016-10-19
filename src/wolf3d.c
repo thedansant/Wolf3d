@@ -6,7 +6,7 @@
 /*   By: mbompoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/30 16:46:03 by mbompoil          #+#    #+#             */
-/*   Updated: 2016/10/10 14:07:48 by mbompoil         ###   ########.fr       */
+/*   Updated: 2016/10/19 17:28:47 by mbompoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,45 @@
 
 void			wolf1(t_wlf *wlf, int x)
 {
-	wlf->pos.cameraX = 2 * x / (double)W - 1;
-	wlf->pos.rayposX = wlf->pos.posX;
-	wlf->pos.rayposY = wlf->pos.posY;
-	wlf->pos.raydirX = wlf->pos.dirX + wlf->pos.planeX * wlf->pos.cameraX;
-	wlf->pos.raydirY = wlf->pos.dirY + wlf->pos.planeY * wlf->pos.cameraX;
-	wlf->pos.mapX = (int)wlf->pos.rayposX;
-	wlf->pos.mapY = (int)wlf->pos.rayposY;
-	wlf->pos.deltadistX = sqrt(1 + (wlf->pos.raydirY * wlf->pos.raydirY)
-			/ (wlf->pos.raydirX * wlf->pos.raydirX));
-	wlf->pos.deltadistY = sqrt(1 + (wlf->pos.raydirX * wlf->pos.raydirX)
-			/ (wlf->pos.raydirY * wlf->pos.raydirY));
+	wlf->pos.camerax = 2 * x / (double)W - 1;
+	wlf->pos.rayposx = wlf->pos.posx;
+	wlf->pos.rayposy = wlf->pos.posy;
+	wlf->pos.raydirx = wlf->pos.dirx + wlf->pos.planex * wlf->pos.camerax;
+	wlf->pos.raydiry = wlf->pos.diry + wlf->pos.planey * wlf->pos.camerax;
+	wlf->pos.mapx = (int)wlf->pos.rayposx;
+	wlf->pos.mapy = (int)wlf->pos.rayposy;
+	wlf->pos.deltadistx = sqrt(1 + (wlf->pos.raydiry * wlf->pos.raydiry)
+			/ (wlf->pos.raydirx * wlf->pos.raydirx));
+	wlf->pos.deltadisty = sqrt(1 + (wlf->pos.raydirx * wlf->pos.raydirx)
+			/ (wlf->pos.raydiry * wlf->pos.raydiry));
 }
 
 void			wolf2(t_wlf *wlf)
 {
 	wlf->pos.hit = 0;
-	if (wlf->pos.raydirX < 0)
+	if (wlf->pos.raydirx < 0)
 	{
-		wlf->pos.stepX = -1;
-		wlf->pos.sidedistX = (wlf->pos.rayposX - wlf->pos.mapX) *
-			wlf->pos.deltadistX;
+		wlf->pos.stepx = -1;
+		wlf->pos.sidedistx = (wlf->pos.rayposx - wlf->pos.mapx) *
+			wlf->pos.deltadistx;
 	}
 	else
 	{
-		wlf->pos.stepX = 1;
-		wlf->pos.sidedistX = (wlf->pos.mapX + 1.0 - wlf->pos.rayposX) *
-			wlf->pos.deltadistX;
+		wlf->pos.stepx = 1;
+		wlf->pos.sidedistx = (wlf->pos.mapx + 1.0 - wlf->pos.rayposx) *
+			wlf->pos.deltadistx;
 	}
-	if (wlf->pos.raydirY < 0)
+	if (wlf->pos.raydiry < 0)
 	{
-		wlf->pos.stepY = -1;
-		wlf->pos.sidedistY = (wlf->pos.rayposY - wlf->pos.mapY) *
-			wlf->pos.deltadistY;
+		wlf->pos.stepy = -1;
+		wlf->pos.sidedisty = (wlf->pos.rayposy - wlf->pos.mapy) *
+			wlf->pos.deltadisty;
 	}
 	else
 	{
-		wlf->pos.stepY = 1;
-		wlf->pos.sidedistY = (wlf->pos.mapY + 1.0 - wlf->pos.rayposY)
-			* wlf->pos.deltadistY;
+		wlf->pos.stepy = 1;
+		wlf->pos.sidedisty = (wlf->pos.mapy + 1.0 - wlf->pos.rayposy)
+			* wlf->pos.deltadisty;
 	}
 }
 
@@ -60,19 +60,19 @@ void			wolf3(t_wlf *wlf)
 {
 	while (wlf->pos.hit == 0)
 	{
-		if (wlf->pos.sidedistX < wlf->pos.sidedistY)
+		if (wlf->pos.sidedistx < wlf->pos.sidedisty)
 		{
-			wlf->pos.sidedistX += wlf->pos.deltadistX;
-			wlf->pos.mapX += wlf->pos.stepX;
+			wlf->pos.sidedistx += wlf->pos.deltadistx;
+			wlf->pos.mapx += wlf->pos.stepx;
 			wlf->pos.side = 0;
 		}
 		else
 		{
-			wlf->pos.sidedistY += wlf->pos.deltadistY;
-			wlf->pos.mapY += wlf->pos.stepY;
+			wlf->pos.sidedisty += wlf->pos.deltadisty;
+			wlf->pos.mapy += wlf->pos.stepy;
 			wlf->pos.side = 1;
 		}
-		if (wlf->map.tab[wlf->pos.mapX][wlf->pos.mapY] > 0)
+		if (wlf->map.tab[wlf->pos.mapx][wlf->pos.mapy] > 0)
 			wlf->pos.hit = 1;
 	}
 }
@@ -80,11 +80,11 @@ void			wolf3(t_wlf *wlf)
 void			wolf4(t_wlf *wlf)
 {
 	if (wlf->pos.side == 0)
-		wlf->pos.perpwalldist = (wlf->pos.mapX - wlf->pos.rayposX +
-				(1 - wlf->pos.stepX) / 2) / wlf->pos.raydirX;
+		wlf->pos.perpwalldist = (wlf->pos.mapx - wlf->pos.rayposx +
+				(1 - wlf->pos.stepx) / 2) / wlf->pos.raydirx;
 	else
-		wlf->pos.perpwalldist = (wlf->pos.mapY - wlf->pos.rayposY +
-				(1 - wlf->pos.stepY) / 2) / wlf->pos.raydirY;
+		wlf->pos.perpwalldist = (wlf->pos.mapy - wlf->pos.rayposy +
+				(1 - wlf->pos.stepy) / 2) / wlf->pos.raydiry;
 	wlf->pos.lineheight = (int)(H / wlf->pos.perpwalldist);
 	wlf->pos.drawstart = -wlf->pos.lineheight / 2 + H / 2;
 	if (wlf->pos.drawstart < 0)
@@ -97,14 +97,14 @@ void			wolf4(t_wlf *wlf)
 void			wolf5(t_wlf *wlf, int x, int tmp)
 {
 	if (wlf->pos.side == 0)
-		wlf->mlx.img.color = wlf->pos.mapX > wlf->pos.posX ?
+		wlf->mlx.img.color = wlf->pos.mapx > wlf->pos.posx ?
 			wlf->mlx.img.color1 : wlf->mlx.img.color2;
 	else
-		wlf->mlx.img.color = wlf->pos.mapY > wlf->pos.posY ?
+		wlf->mlx.img.color = wlf->pos.mapy > wlf->pos.posy ?
 			wlf->mlx.img.color3 : wlf->mlx.img.color4;
 	while (tmp < wlf->pos.drawstart)
 	{
-		draw_px(x, tmp, 0x77B5FE, wlf);
+		draw_px(x, tmp, wlf->mlx.img.color0, wlf);
 		tmp++;
 	}
 	while (tmp < wlf->pos.drawend)
@@ -114,7 +114,7 @@ void			wolf5(t_wlf *wlf, int x, int tmp)
 	}
 	while (tmp < H)
 	{
-		draw_px(x, tmp, 0x808080, wlf);
+		draw_px(x, tmp, wlf->mlx.img.color5, wlf);
 		tmp++;
 	}
 }
